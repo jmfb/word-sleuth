@@ -37,6 +37,7 @@ namespace WordSleuth.Server {
 				new AmazonDynamoDBClient(new AmazonDynamoDBConfig { RegionEndpoint = RegionEndpoint.USEast1 }));
 			services.AddSingleton<DynamoDBContext>(provider =>
 				new DynamoDBContext(provider.GetRequiredService<AmazonDynamoDBClient>()));
+			services.AddSingleton<IGamesService, GamesService>();
 			services.AddControllers();
 			services
 				.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

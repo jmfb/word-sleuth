@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
-namespace WordSleuth.Resources {
+namespace WordSleuth.Server.Resources {
 	public static class Words {
 		public static HashSet<string> AllWords { get; } = new(ReadAllWords());
+
+		public static string GetWordForGame(int gameId) {
+			return AllWords.ElementAt(new Random(gameId).Next(AllWords.Count));
+		}
 
 		private static IEnumerable<string> ReadAllWords() {
 			using var stream = GetStream("words.txt");
