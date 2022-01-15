@@ -3,3 +3,4 @@ export { createStore } from './store';
 export * as errorSlice from './error.slice';
 export * as authSlice from './auth.slice';
 export * as diagnosticsSlice from './diagnostics.slice';
+export * as gamesSlice from './games.slice';

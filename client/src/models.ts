@@ -16,3 +16,37 @@ export interface ISignedInModel {
 export interface IHeartbeatModel {
 	bundleVersion: string;
 }
+
+export enum GameStatus {
+	InProgress = 0,
+	Correct,
+	Incorrect
+}
+
+export enum GuessStatus {
+	InvalidWord = 0,
+	Incorrect,
+	Correct
+}
+
+export enum LetterResult {
+	NotInWord = 0,
+	Correct,
+	WrongPosition
+}
+
+export interface IGuess {
+	word: string;
+	letterResults: LetterResult[];
+}
+
+export interface IGuessResult {
+	guess?: IGuess;
+	status: GuessStatus;
+}
+
+export interface IGame {
+	id: number;
+	guesses: IGuess[];
+	status: GameStatus;
+}

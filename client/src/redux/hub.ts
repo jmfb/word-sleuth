@@ -40,16 +40,17 @@ export async function get<T>(request: IGetRequest) {
 	return await response.json() as T;
 }
 
-interface ISendRequest<T> extends IGetRequest {
-	body: T;
+interface ISendRequest extends IGetRequest {
+	body?: any;
 }
 
-export async function put<T>(request: ISendRequest<T>) {
+export async function post<T>(request: ISendRequest) {
 	const { endpoint, query, accessToken, body } = request;
 	const response = await fetch(formatUri(endpoint, query), {
-		method: 'PUT',
+		method: 'POST',
 		headers: getStandardHeaders(accessToken),
-		body: JSON.stringify(body)
+		body: body ? JSON.stringify(body) : undefined
 	});
 	await checkStatus(response);
+	return await response.json() as T;
 }
