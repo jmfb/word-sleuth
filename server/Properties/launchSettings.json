@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "WordSleuth.Server": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "applicationUrl": "https://localword-sleuth.buysse.link:6001;http://localword-sleuth.buysse.link:6000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
