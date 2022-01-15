@@ -13,4 +13,12 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\**\*.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\**\*.txt" />
+  </ItemGroup>
+
 </Project>
