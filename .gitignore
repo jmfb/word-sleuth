@@ -1,0 +1,7 @@
+.git
+.terraform*
+tfplan
+node_modules/
+dist/
+obj/
+bin/
