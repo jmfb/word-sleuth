@@ -27,5 +27,31 @@ namespace WordSleuth.Server.Api.Controllers {
 			}
 			return Ok(new GameModel(1));
 		}
+
+		[HttpPost("{gameId}/guess/{word}")]
+		public async Task<IActionResult> PostGuessAsync(
+			[FromRoute] int gameId,
+			[FromRoute] string word,
+			CancellationToken cancellationToken
+		) {
+			var game = await GamesService.GetAsync(UserId, gameId, cancellationToken);
+			if (game.Status != (int)GameStatus.InProgress) {
+				return BadRequest();
+			}
+			var result = await GamesService.MakeGuessAsync(game, word, cancellationToken);
+			return Ok(result);
+		}
+
+		[HttpGet("{gameId}/answer")]
+		public async Task<IActionResult> GetAnswerAsync(
+			[FromRoute] int gameId,
+			CancellationToken cancellationToken
+		) {
+			var game = await GamesService.GetAsync(UserId, gameId, cancellationToken);
+			if (game.Status != (int)GameStatus.Incorrect) {
+				return BadRequest();
+			}
+			return Ok(game.Word);
+		}
 	}
 }

@@ -21,7 +21,7 @@ namespace WordSleuth.Server.Resources {
 		}
 
 		internal static Stream GetStream(string fileName) =>
-			Assembly.GetExecutingAssembly().GetManifestResourceStream($"WordSleuth.Resources.{fileName}") ??
+			Assembly.GetExecutingAssembly().GetManifestResourceStream($"WordSleuth.Server.Resources.{fileName}") ??
 			throw new InvalidOperationException($"Could not find template resource: {fileName}");
 	}
 }
