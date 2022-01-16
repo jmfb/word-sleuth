@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { GameStatus } from '~/models';
+import styles from './Answer.css';
 
 export interface IAnswerProps {
 	id: number;
@@ -25,6 +26,8 @@ export default function Answer({
 	}
 
 	return (
-		<div>Answer: {answer.toUpperCase()}</div>
+		<div className={styles.root}>
+			Answer: {answer.toUpperCase()}
+		</div>
 	);
 }
