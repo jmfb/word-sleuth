@@ -12,12 +12,20 @@
 }
 
 .key {
+	cursor: pointer;
+	user-select: none;
 	border: 1px solid black;
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
+	margin-left: 2px;
+	margin-right: 2px;
 	background-color: lightgray;
 	border-radius: 4px;
 	padding: 4px 8px;
+	min-width: 28px;
+	text-align: center;
+}
+
+.key:hover {
+	background-color: lightblue;
 }
 
 .correct {

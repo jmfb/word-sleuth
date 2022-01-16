@@ -2,8 +2,8 @@
 	display: inline-flex;
 	flex-direction: row;
 	align-items: center;
-	width: 30px;
-	height: 30px;
+	width: 32px;
+	height: 32px;
 	border: 1px solid black;
 	background-color: white;
 }
@@ -24,4 +24,8 @@
 
 .notInWord {
 	background-color: lightgray;
+}
+
+.invalidWord {
+	background-color: pink;
 }

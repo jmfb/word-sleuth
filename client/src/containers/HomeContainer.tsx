@@ -34,12 +34,12 @@ export default function HomeContainer() {
 				isGuessing,
 				guess,
 				answer,
-				newGame,
 				setEntry,
-				makeGuess,
-				commitGuess,
-				getAnswer
+				makeGuess
 			}}
+			newGame={() => newGame()}
+			commitGuess={() => commitGuess()}
+			getAnswer={() => getAnswer()}
 			/>
 	);
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useInterval } from '~/hooks';
 import Guess from './Guess';
-import { IGuessResult } from '~/models';
+import { IGuessResult, GuessStatus } from '~/models';
 
 export interface INewGuessProps {
 	entry: string;
@@ -29,6 +29,18 @@ export default function NewGuess({
 					word: (entry + '     ').substr(0, 5),
 					letterResults: null
 				}}
+				/>
+		);
+	}
+
+	if (guess.status === GuessStatus.InvalidWord) {
+		return (
+			<Guess
+				guess={{
+					word: entry,
+					letterResults: null
+				}}
+				invalidWord
 				/>
 		);
 	}

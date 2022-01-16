@@ -2,6 +2,7 @@ import React from 'react';
 import Guess from './Guess';
 import NewGuess from './NewGuess';
 import { IGuess, IGuessResult, GameStatus } from '~/models';
+import styles from './Board.css';
 
 export interface IBoardProps {
 	guesses: IGuess[];
@@ -21,7 +22,7 @@ export default function Board({
 	commitGuess
 }: IBoardProps) {
 	return (
-		<>
+		<div className={styles.root}>
 			{guesses.map((oldGuess, index) =>
 				<Guess
 					key={index}
@@ -45,6 +46,6 @@ export default function Board({
 						/>
 				)
 			}
-		</>
+		</div>
 	);
 }
