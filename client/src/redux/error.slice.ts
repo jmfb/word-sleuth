@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getAuthenticationUrl, authenticate } from './auth.actions';
 import { heartbeat } from './diagnostics.actions';
+import { getNextGame, makeGuess, getAnswer } from './games.actions';
 import { IErrorReport } from '~/models';
 
 export interface IErrorState {
@@ -24,7 +25,7 @@ function setErrorState(state: IErrorState, name: string, message: string, contex
 	state.context = context ? JSON.stringify(context) : undefined;
 }
 
-export const { name, reducer, actions } = createSlice({
+const slice = createSlice({
 	name: 'error',
 	initialState,
 	reducers: {
@@ -49,4 +50,20 @@ export const { name, reducer, actions } = createSlice({
 		.addCase(heartbeat.rejected, (state, action) => {
 			setErrorState(state, 'Heartbeat', action.error.message);
 		})
+		.addCase(getNextGame.rejected, (state, action) => {
+			setErrorState(state, 'Getting next game', action.error.message);
+		})
+		.addCase(makeGuess.rejected, (state, action) => {
+			setErrorState(state, 'Making a guess', action.error.message);
+		})
+		.addCase(getAnswer.rejected, (state, action) => {
+			setErrorState(state, 'Getting answer', action.error.message);
+		})
 });
+
+export default {
+	...slice,
+	actions: {
+		...slice.actions
+	}
+};

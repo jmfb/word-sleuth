@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import * as errorSlice from './error.slice';
-import * as authSlice from './auth.slice';
-import * as diagnosticsSlice from './diagnostics.slice';
-import * as gamesSlice from './games.slice';
+import errorSlice from './error.slice';
+import authSlice from './auth.slice';
+import diagnosticsSlice from './diagnostics.slice';
+import gamesSlice from './games.slice';
 import IState from './IState';
 
 export function createStore() {

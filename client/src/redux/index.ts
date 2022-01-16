@@ -1,6 +1,6 @@
 export { default as IState } from './IState';
 export { createStore } from './store';
-export * as errorSlice from './error.slice';
-export * as authSlice from './auth.slice';
-export * as diagnosticsSlice from './diagnostics.slice';
-export * as gamesSlice from './games.slice';
+export { default as errorSlice } from './error.slice';
+export { default as authSlice } from './auth.slice';
+export { default as diagnosticsSlice } from './diagnostics.slice';
+export { default as gamesSlice } from './games.slice';
