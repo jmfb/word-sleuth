@@ -8,18 +8,30 @@ namespace WordSleuth.Server.Models {
 
 		public Guess(string word, string guess) {
 			Word = guess;
-			LetterResults = guess
-				.Select((letter, index) => GetLetterResult(word, letter, index))
-				.ToList();
-		}
 
-		private static LetterResult GetLetterResult(string word, char letter, int index) {
-			if (word[index] == letter) {
-				return LetterResult.Correct;
+			var correctLetters = guess
+				.Select((letter, index) => (letter, index))
+				.Where(pair => word[pair.index] == pair.letter)
+				.Select(pair => pair.index)
+				.ToList();
+			var remainingLetters = word
+				.Select((letter, index) => (letter, index))
+				.Where(pair => !correctLetters.Contains(pair.index))
+				.Select(pair => pair.letter)
+				.ToList();
+
+			var letterResults = new LetterResult[5];
+			foreach (var index in Enumerable.Range(0, 5)) {
+				if (correctLetters.Contains(index)) {
+					letterResults[index] = LetterResult.Correct;
+				} else if (remainingLetters.Contains(guess[index])) {
+					letterResults[index] = LetterResult.WrongPosition;
+					remainingLetters.RemoveAt(remainingLetters.IndexOf(guess[index]));
+				} else {
+					letterResults[index] = LetterResult.NotInWord;
+				}
 			}
-			return word.Any(otherLetter => otherLetter == letter) ?
-				LetterResult.WrongPosition :
-				LetterResult.NotInWord;
+			LetterResults = letterResults;
 		}
 	}
 }
