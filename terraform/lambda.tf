@@ -30,8 +30,8 @@ resource "aws_lambda_function" "lambda" {
 
   environment {
     variables = {
-      EncryptedTokenSecret      = data.aws_kms_ciphertext.token_secret.ciphertext_blob
-      EncryptedAuthClientSecret = data.aws_kms_ciphertext.auth_client_secret.ciphertext_blob
+      EncryptedWordSleuthTokenSecret      = data.aws_kms_ciphertext.token_secret.ciphertext_blob
+      EncryptedWordSleuthAuthClientSecret = data.aws_kms_ciphertext.auth_client_secret.ciphertext_blob
     }
   }
 
