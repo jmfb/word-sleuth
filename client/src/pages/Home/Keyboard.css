@@ -1,0 +1,33 @@
+.root {
+	display: flex;
+	flex-direction: column;
+}
+
+.row {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0.5rem;
+	display: flex;
+	flex-direction: row;
+}
+
+.key {
+	border: 1px solid black;
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	background-color: lightgray;
+	border-radius: 4px;
+	padding: 4px 8px;
+}
+
+.correct {
+	background-color: green;
+}
+
+.wrongPosition {
+	background-color: yellow;
+}
+
+.notInWord {
+	background-color: darkgray;
+}

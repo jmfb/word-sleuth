@@ -33,18 +33,21 @@ const slice = createSlice({
 		},
 		commitGuess(state) {
 			switch (state.guess.status) {
+				case GuessStatus.InvalidWord:
+					break;
 				case GuessStatus.Incorrect:
+					state.entry = '';
 					state.game.guesses.push(state.guess.guess);
 					if (state.game.guesses.length === 6) {
 						state.game.status = GameStatus.Incorrect;
 					}
 					break;
 				case GuessStatus.Correct:
+					state.entry = '';
 					state.game.guesses.push(state.guess.guess);
 					state.game.status = GameStatus.Correct;
 					break;
 			}
-			state.entry = '';
 			state.guess = null;
 		},
 		newGame(state) {
