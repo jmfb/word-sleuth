@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { SignIn } from '~/pages';
-import { IState, authSlice } from '~/redux';
+import { useAppSelector, authSlice } from '~/redux';
 
 export default function SignInContainer() {
 	const dispatch = useDispatch();
-	const isSigningIn = useSelector((state: IState) => state.auth.isSigningIn);
-	const url = useSelector((state: IState) => state.auth.url);
+	const isSigningIn = useAppSelector(state => state.auth.isSigningIn);
+	const url = useAppSelector(state => state.auth.url);
 
 	useEffect(() => {
 		dispatch(authSlice.actions.signOut());

@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { useSelector, TypedUseSelectorHook } from 'react-redux';
 import errorSlice from './error.slice';
 import authSlice from './auth.slice';
 import diagnosticsSlice from './diagnostics.slice';
@@ -15,3 +16,5 @@ export function createStore() {
 		}
 	});
 }
+
+export const useAppSelector: TypedUseSelectorHook<IState> = useSelector;

@@ -1,9 +1,9 @@
 import React, { lazy, useEffect } from 'react';
 import { Redirect, Switch, Route, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Header from './Header';
 import NewerVersionPrompt from './NewerVersionPrompt';
-import { IState, authSlice, diagnosticsSlice } from '~/redux';
+import { useAppSelector, authSlice, diagnosticsSlice } from '~/redux';
 import { useInterval } from '~/hooks';
 
 const asyncHomeContainer = lazy(() =>
@@ -16,11 +16,11 @@ const asyncSignOutContainer = lazy(() =>
 export default function ApplicationContainer() {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const redirectToSignIn = useSelector((state: IState) => state.auth.redirectToSignIn);
-	const url = useSelector((state: IState) => state.auth.url);
-	const email = useSelector((state: IState) => state.auth.email);
-	const bundleVersion = useSelector((state: IState) => state.diagnostics.bundleVersion);
-	const serverBundleVersion = useSelector((state: IState) => state.diagnostics.serverBundleVersion);
+	const redirectToSignIn = useAppSelector(state => state.auth.redirectToSignIn);
+	const url = useAppSelector(state => state.auth.url);
+	const email = useAppSelector(state => state.auth.email);
+	const bundleVersion = useAppSelector(state => state.diagnostics.bundleVersion);
+	const serverBundleVersion = useAppSelector(state => state.diagnostics.serverBundleVersion);
 
 	useEffect(() => {
 		dispatch(authSlice.actions.readLocalStorage());
