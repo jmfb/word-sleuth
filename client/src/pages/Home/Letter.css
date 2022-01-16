@@ -1,0 +1,27 @@
+.root {
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	width: 30px;
+	height: 30px;
+	border: 1px solid black;
+	background-color: white;
+}
+
+.letter {
+	margin-left: auto;
+	margin-right: auto;
+	font-weight: bold;
+}
+
+.correct {
+	background-color: green;
+}
+
+.wrongPosition {
+	background-color: yellow;
+}
+
+.notInWord {
+	background-color: lightgray;
+}

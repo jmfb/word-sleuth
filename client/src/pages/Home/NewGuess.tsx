@@ -24,7 +24,12 @@ export default function NewGuess({
 
 	if (!guess) {
 		return (
-			<div>{entry}</div>
+			<Guess
+				guess={{
+					word: (entry + '     ').substr(0, 5),
+					letterResults: null
+				}}
+				/>
 		);
 	}
 
