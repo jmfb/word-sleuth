@@ -67,6 +67,7 @@ export default function Home({
 						setEntry,
 						makeGuess
 					}}
+					disabled={isGuessing || !!guess}
 					/>
 			}
 			{status !== GameStatus.InProgress &&

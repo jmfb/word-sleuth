@@ -4,6 +4,7 @@ import cx from 'classnames';
 import styles from './Keyboard.css';
 
 export interface IKeyboardProps {
+	disabled: boolean;
 	guesses: IGuess[];
 	entry: string;
 	setEntry(word: string): void;
@@ -11,6 +12,7 @@ export interface IKeyboardProps {
 }
 
 export default function Keyboard({
+	disabled,
 	guesses,
 	entry,
 	setEntry,
@@ -23,6 +25,9 @@ export default function Keyboard({
 	];
 
 	const createClickHandler = (value: string) => () => {
+		if (disabled) {
+			return;
+		}
 		if (value === '*') {
 			if (entry.length === 5) {
 				makeGuess(entry);
