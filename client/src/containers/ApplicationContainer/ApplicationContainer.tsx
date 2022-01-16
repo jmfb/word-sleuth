@@ -1,4 +1,5 @@
 import React, { lazy, useEffect } from 'react';
+import { bindActionCreators } from 'redux';
 import { Redirect, Switch, Route, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Header from './Header';
@@ -15,6 +16,8 @@ const asyncSignOutContainer = lazy(() =>
 
 export default function ApplicationContainer() {
 	const dispatch = useDispatch();
+	const { readLocalStorage } = bindActionCreators(authSlice.actions, dispatch);
+	const { heartbeat } = bindActionCreators(diagnosticsSlice.actions, dispatch);
 	const history = useHistory();
 	const redirectToSignIn = useAppSelector(state => state.auth.redirectToSignIn);
 	const url = useAppSelector(state => state.auth.url);
@@ -23,11 +26,11 @@ export default function ApplicationContainer() {
 	const serverBundleVersion = useAppSelector(state => state.diagnostics.serverBundleVersion);
 
 	useEffect(() => {
-		dispatch(authSlice.actions.readLocalStorage());
+		readLocalStorage();
 	}, []);
 
 	useInterval(() => {
-		dispatch(diagnosticsSlice.actions.heartbeat());
+		heartbeat();
 	}, 60_000);
 
 	const handleRefreshClicked = () => {
