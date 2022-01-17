@@ -24,12 +24,9 @@
 	text-align: center;
 }
 
-.key:hover {
-	background-color: lightblue;
-}
-
 .correct {
 	background-color: green;
+	color: white;
 }
 
 .wrongPosition {

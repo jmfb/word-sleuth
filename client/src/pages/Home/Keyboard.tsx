@@ -50,7 +50,8 @@ export default function Keyboard({
 	const getKeyClassName = (value: string) => {
 		const correct = guesses.some(guess => isLetter(value, guess, LetterResult.Correct));
 		const wrongPosition = !correct && guesses.some(guess => isLetter(value, guess, LetterResult.WrongPosition));
-		const notInWord = guesses.some(guess => isLetter(value, guess, LetterResult.NotInWord));
+		const isInWord = correct || wrongPosition;
+		const notInWord = !isInWord && guesses.some(guess => isLetter(value, guess, LetterResult.NotInWord));
 		return cx(styles.key, {
 			[styles.correct]: correct,
 			[styles.wrongPosition]: wrongPosition,
