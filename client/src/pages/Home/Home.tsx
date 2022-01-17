@@ -71,6 +71,7 @@ export default function Home({
 				{...{
 					id,
 					status,
+					guesses,
 					answer,
 					getAnswer
 				}}

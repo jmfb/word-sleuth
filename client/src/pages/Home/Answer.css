@@ -4,3 +4,11 @@
 	font-weight: bold;
 	font-size: large;
 }
+
+.definition {
+	margin-left: 0.5rem;
+}
+
+.definition:hover {
+	text-decoration: underline;
+}
