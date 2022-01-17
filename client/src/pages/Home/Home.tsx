@@ -3,7 +3,8 @@ import { Button, PageLoading } from '~/components';
 import Board from './Board';
 import Answer from './Answer';
 import Keyboard from './Keyboard';
-import { IGame, IGuessResult, GameStatus } from '~/models';
+import { IGame, IGuess, IGuessResult, GameStatus, LetterResult } from '~/models';
+import styles from './Home.css';
 
 export interface IHomeProps {
 	isLoading: boolean;
@@ -38,6 +39,21 @@ export default function Home({
 
 	const { id, guesses, status } = game;
 
+	const letterResultMap = {
+		[LetterResult.Correct]: '🟩',
+		[LetterResult.WrongPosition]: '🟨',
+		[LetterResult.NotInWord]: '⬜'
+	};
+	const toShareString = (guess: IGuess) => {
+		return guess.letterResults.map(result => letterResultMap[result]).join('');
+	};
+
+	const handleShare = () => {
+		navigator.share({
+			text: `Word Sleuth ${id}\n\n` + guesses.map(toShareString).join('\n')
+		});
+	};
+
 	return (
 		<>
 			<h1>Game #{id}</h1>
@@ -71,7 +87,10 @@ export default function Home({
 					/>
 			}
 			{status !== GameStatus.InProgress &&
-				<Button onClick={newGame}>New Game</Button>
+				<div className={styles.buttons}>
+					<Button onClick={handleShare}>SHARE</Button>
+					<Button onClick={newGame}>NEW GAME</Button>
+				</div>
 			}
 		</>
 	);
