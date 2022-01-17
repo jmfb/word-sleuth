@@ -13,11 +13,6 @@ export default function Histogram({
 	wins,
 	maxWins
 }: IHistogramProps) {
-	const winsClass = cx({
-		[styles.wins]: wins > 0,
-		[styles.none]: wins === 0
-	});
-
 	const flexBasis = maxWins === 0 ?
 		0 :
 		Math.round((wins / maxWins) * 100);
@@ -26,7 +21,7 @@ export default function Histogram({
 		<div className={styles.root}>
 			<div className={styles.count}>{count}</div>
 			<div
-				className={winsClass}
+				className={cx(styles.games, { [styles.wins]: wins > 0 })}
 				style={{
 					flexBasis: `${flexBasis}%`
 				}}>
