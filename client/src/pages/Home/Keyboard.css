@@ -19,7 +19,7 @@
 	margin-right: 2px;
 	background-color: lightgray;
 	border-radius: 4px;
-	padding: 12px 8px;
+	padding: 12px 0;
 	min-width: 28px;
 	text-align: center;
 }
@@ -35,4 +35,28 @@
 
 .notInWord {
 	background-color: darkgray;
+}
+
+.enter {
+	background-color: lightblue;
+	min-width: 42px;
+}
+
+.backspace {
+	background-color: lightpink;
+	min-width: 42px;
+}
+
+@media screen and (max-width: 342px) {
+	.key {
+		min-width: 20px;
+	}
+
+	.enter {
+		min-width: 32px;
+	}
+
+	.backspace {
+		min-width: 32px;
+	}
 }

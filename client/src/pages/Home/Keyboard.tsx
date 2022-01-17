@@ -72,7 +72,9 @@ export default function Keyboard({
 		return cx(styles.key, {
 			[styles.correct]: correct,
 			[styles.wrongPosition]: wrongPosition,
-			[styles.notInWord]: notInWord
+			[styles.notInWord]: notInWord,
+			[styles.enter]: value === '*',
+			[styles.backspace]: value === '-'
 		});
 	};
 
@@ -86,10 +88,10 @@ export default function Keyboard({
 							className={getKeyClassName(row[index])}
 							onClick={createClickHandler(row[index])}>
 							{row[index] === '*' &&
-								'ENTER'
+								'⏎'
 							}
 							{row[index] === '-' &&
-								'BACK'
+								'⇦'
 							}
 							{row[index] !== '*' && row[index] !== '-' &&
 								row[index].toUpperCase()
