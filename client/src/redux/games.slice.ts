@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IGame, IGuessResult, GameStatus, GuessStatus } from '~/models';
+import { IGame, IGuessResult, IStatistics, GameStatus, GuessStatus } from '~/models';
 import {
 	getNextGame,
 	makeGuess,
-	getAnswer
+	getAnswer,
+	getStatistics
 } from './games.actions';
 
 export interface IGamesState {
@@ -13,6 +14,8 @@ export interface IGamesState {
 	isGuessing: boolean;
 	guess: IGuessResult;
 	answer: string;
+	isLoadingStatistics: boolean;
+	statistics: IStatistics;
 }
 
 const initialState: IGamesState = {
@@ -21,7 +24,9 @@ const initialState: IGamesState = {
 	entry: '',
 	isGuessing: false,
 	guess: null,
-	answer: null
+	answer: null,
+	isLoadingStatistics: false,
+	statistics: null
 };
 
 const slice = createSlice({
@@ -90,6 +95,18 @@ const slice = createSlice({
 		.addCase(getAnswer.fulfilled, (state, action) => {
 			state.answer = action.payload;
 		})
+
+		.addCase(getStatistics.pending, state => {
+			state.isLoadingStatistics = true;
+			state.statistics = null;
+		})
+		.addCase(getStatistics.fulfilled, (state, action) => {
+			state.isLoadingStatistics = false;
+			state.statistics = action.payload;
+		})
+		.addCase(getStatistics.rejected, state => {
+			state.isLoadingStatistics = false;
+		})
 });
 
 export default {
@@ -98,6 +115,7 @@ export default {
 		...slice.actions,
 		getNextGame,
 		makeGuess,
-		getAnswer
+		getAnswer,
+		getStatistics
 	}
 };

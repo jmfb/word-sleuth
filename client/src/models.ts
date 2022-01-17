@@ -50,3 +50,11 @@ export interface IGame {
 	guesses: IGuess[];
 	status: GameStatus;
 }
+
+export interface IStatistics {
+	gamesPlayed: number;
+	gamesWon: number;
+	currentStreak: number;
+	longestStreak: number;
+	winsByGuessCount: Record<number, number>;
+}

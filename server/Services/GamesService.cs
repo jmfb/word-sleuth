@@ -13,6 +13,7 @@ namespace WordSleuth.Server.Services {
 		Task<Game> GetAsync(string userId, int gameId, CancellationToken cancellationToken);
 		Task<GuessResult> MakeGuessAsync(Game game, string word, CancellationToken cancellationToken);
 		Task<IList<Game>> LoadAllAsync(string userId, CancellationToken cancellationToken);
+		Task<Statistics> GetStatisticsAsync(string userId, CancellationToken cancellationToken);
 	}
 
 	public class GamesService : IGamesService {
@@ -71,6 +72,61 @@ namespace WordSleuth.Server.Services {
 
 		public async Task<IList<Game>> LoadAllAsync(string userId, CancellationToken cancellationToken) {
 			return await Context.QueryAsync<Game>(userId).GetRemainingAsync(cancellationToken);
+		}
+
+		public async Task<Statistics> GetStatisticsAsync(string userId, CancellationToken cancellationToken) {
+			var allGames = await LoadAllAsync(userId, cancellationToken);
+			var gamesPlayed = allGames.Where(game => game.Status != (int)GameStatus.InProgress).ToList();
+			var wins = gamesPlayed.Where(game => game.Status == (int)GameStatus.Correct).ToList();
+			var winsByGuessCountLookup = wins.ToLookup(game => GuessCount(game));
+
+			var longestStreak = 0;
+			var currentStreak = 0;
+			foreach (var game in allGames.OrderBy(game => game.GameId)) {
+				switch (game.Status) {
+					case (int)GameStatus.Incorrect:
+						longestStreak = Math.Max(longestStreak, currentStreak);
+						currentStreak = 0;
+						break;
+					case (int)GameStatus.Correct:
+						++currentStreak;
+						break;
+				}
+			}
+			longestStreak = Math.Max(longestStreak, currentStreak);
+
+			return new Statistics {
+				GamesPlayed = gamesPlayed.Count,
+				GamesWon = wins.Count,
+				CurrentStreak = currentStreak,
+				LongestStreak = longestStreak,
+				WinsByGuessCount = Enumerable.Range(1, 6)
+					.ToDictionary(
+						count => count,
+						count => winsByGuessCountLookup[count].Count())
+			};
+		}
+
+		private static int GuessCount(Game game) {
+			if (!string.IsNullOrEmpty(game.Guess6)) {
+				return 6;
+			}
+			if (!string.IsNullOrEmpty(game.Guess5)) {
+				return 5;
+			}
+			if (!string.IsNullOrEmpty(game.Guess4)) {
+				return 4;
+			}
+			if (!string.IsNullOrEmpty(game.Guess3)) {
+				return 3;
+			}
+			if (!string.IsNullOrEmpty(game.Guess2)) {
+				return 2;
+			}
+			if (!string.IsNullOrEmpty(game.Guess1)) {
+				return 1;
+			}
+			return 0;
 		}
 	}
 }

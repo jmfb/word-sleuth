@@ -16,3 +16,8 @@ export const getAnswer = createAsyncThunk('games/getAnswer', async (unused, { ge
 	const { auth: { accessToken }, games: { game: { id: gameId } } } = getState() as IState;
 	return await hub.getAnswer(accessToken, gameId);
 });
+
+export const getStatistics = createAsyncThunk('games/getStatistics', async (unused, { getState }) => {
+	const { auth: { accessToken } } = getState() as IState;
+	return await hub.getStatistics(accessToken);
+});

@@ -1,0 +1,26 @@
+.root {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 0.5rem;
+}
+
+.count {
+	font-weight: bold;
+	margin-right: 0.5rem;
+}
+
+.wins {
+	background-color: green;
+	color: white;
+	padding-right: 0.5rem;
+	text-align: right;
+	border-radius: 4px;
+}
+
+.none {
+	background-color: #666;
+	color: white;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+	border-radius: 4px;
+}

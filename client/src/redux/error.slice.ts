@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getAuthenticationUrl, authenticate } from './auth.actions';
-import { heartbeat } from './diagnostics.actions';
-import { getNextGame, makeGuess, getAnswer } from './games.actions';
+import { getNextGame, makeGuess, getAnswer, getStatistics } from './games.actions';
 import { IErrorReport } from '~/models';
 
 export interface IErrorState {
@@ -47,9 +46,6 @@ const slice = createSlice({
 		.addCase(authenticate.rejected, (state, action) => {
 			setErrorState(state, 'Authenticating', action.error.message);
 		})
-		.addCase(heartbeat.rejected, (state, action) => {
-			setErrorState(state, 'Heartbeat', action.error.message);
-		})
 		.addCase(getNextGame.rejected, (state, action) => {
 			setErrorState(state, 'Getting next game', action.error.message);
 		})
@@ -58,6 +54,9 @@ const slice = createSlice({
 		})
 		.addCase(getAnswer.rejected, (state, action) => {
 			setErrorState(state, 'Getting answer', action.error.message);
+		})
+		.addCase(getStatistics.rejected, (state, action) => {
+			setErrorState(state, 'Getting statistics', action.error.message);
 		})
 });
 

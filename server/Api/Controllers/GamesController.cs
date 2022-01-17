@@ -53,5 +53,13 @@ namespace WordSleuth.Server.Api.Controllers {
 			}
 			return Ok(game.Word);
 		}
+
+		[HttpGet("statistics")]
+		public async Task<IActionResult> GetStatisticsAsync(
+			CancellationToken cancellationToken
+		) {
+			var statistics = await GamesService.GetStatisticsAsync(UserId, cancellationToken);
+			return Ok(statistics);
+		}
 	}
 }
