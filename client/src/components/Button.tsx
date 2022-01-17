@@ -9,6 +9,7 @@ export interface IButtonProps {
 	children?: React.ReactNode;
 	isDisabled?: boolean;
 	isProcessing?: boolean;
+	autoFocus?: boolean;
 }
 
 export default function Button({
@@ -16,11 +17,12 @@ export default function Button({
 	onClick,
 	children,
 	isDisabled,
-	isProcessing
+	isProcessing,
+	autoFocus
 }: IButtonProps) {
 	return (
 		<button
-			{...{onClick}}
+			{...{onClick, autoFocus}}
 			className={cx(styles.button, styles.primary, className)}
 			disabled={isDisabled}>
 			<div className={cx({ [styles.processing]: isProcessing })}>{children}</div>

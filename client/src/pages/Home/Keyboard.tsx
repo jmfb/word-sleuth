@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDocumentKeyboardEvent } from '~/hooks';
 import { IGuess, LetterResult } from '~/models';
 import cx from 'classnames';
 import styles from './Keyboard.css';
@@ -24,7 +25,7 @@ export default function Keyboard({
 		'*zxcvbnm-'
 	];
 
-	const createClickHandler = (value: string) => () => {
+	const handleKeyPressed = (value: string) => {
 		if (disabled) {
 			return;
 		}
@@ -40,6 +41,22 @@ export default function Keyboard({
 			setEntry(entry + value);
 		}
 	};
+
+	const createClickHandler = (value: string) => () => handleKeyPressed(value);
+
+	const handleDocumentKeyDown = (event: KeyboardEvent) => {
+		if (event.code === 'Enter') {
+			handleKeyPressed('*');
+		} else if (event.code === 'Backspace' || event.code === 'Delete') {
+			handleKeyPressed('-');
+		} else if (/^[a-z]$/.test(event.key)) {
+			handleKeyPressed(event.key);
+		} else if (event.code === 'Escape' && !disabled) {
+			setEntry('');
+		}
+	};
+
+	useDocumentKeyboardEvent('keydown', handleDocumentKeyDown);
 
 	const isLetter = (value: string, guess: IGuess, result: LetterResult) => {
 		return new Array(5).fill(0).some((notUsed, index) =>

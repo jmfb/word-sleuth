@@ -89,7 +89,7 @@ export default function Home({
 			{status !== GameStatus.InProgress &&
 				<div className={styles.buttons}>
 					<Button onClick={handleShare}>SHARE</Button>
-					<Button onClick={newGame}>NEW GAME</Button>
+					<Button onClick={newGame} autoFocus>NEW GAME</Button>
 				</div>
 			}
 		</>
