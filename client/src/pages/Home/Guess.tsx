@@ -7,17 +7,24 @@ export interface IGuessProps {
 	guess?: IGuess;
 	invalidWord?: boolean;
 	slowReveal?: number;
+	onClick?(remainingWord: string): void;
 }
 
 export default function Guess({
 	guess,
 	invalidWord,
-	slowReveal
+	slowReveal,
+	onClick
 }: IGuessProps) {
 	const word = guess?.word ?? '     ';
 	const letterResults = guess?.letterResults ?? [];
 	const isRevealed = (index: number) => {
 		return slowReveal === undefined || index <= slowReveal;
+	};
+	const createClickHandler = (index: number) => () => {
+		if (onClick) {
+			onClick(word.substr(0, index).trim());
+		}
 	};
 	return (
 		<div className={styles.root}>
@@ -27,6 +34,7 @@ export default function Guess({
 					value={word[index]}
 					result={isRevealed(index) ? letterResults[index] : undefined}
 					{...{invalidWord}}
+					onClick={createClickHandler(index)}
 					/>
 			)}
 		</div>

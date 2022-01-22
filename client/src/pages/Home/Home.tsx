@@ -64,7 +64,8 @@ export default function Home({
 					isGuessing,
 					guess,
 					status,
-					commitGuess
+					commitGuess,
+					setEntry
 				}}
 				/>
 			<Answer

@@ -8,13 +8,15 @@ export interface INewGuessProps {
 	isGuessing: boolean;
 	guess: IGuessResult;
 	commitGuess(): void;
+	onClick(remainingWord: string): void;
 }
 
 export default function NewGuess({
 	entry,
 	isGuessing,
 	guess,
-	commitGuess
+	commitGuess,
+	onClick
 }: INewGuessProps) {
 	const [counter, setCounter] = useState(0);
 
@@ -37,7 +39,7 @@ export default function NewGuess({
 		<Guess
 			guess={guess?.guess ?? currentGuess}
 			invalidWord={guess?.status === GuessStatus.InvalidWord}
-			{...{slowReveal}}
+			{...{slowReveal, onClick}}
 			/>
 	);
 }

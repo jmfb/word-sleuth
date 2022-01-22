@@ -11,6 +11,7 @@ export interface IBoardProps {
 	guess: IGuessResult;
 	status: GameStatus;
 	commitGuess(): void;
+	setEntry(word: string): void;
 }
 
 export default function Board({
@@ -19,8 +20,14 @@ export default function Board({
 	isGuessing,
 	guess,
 	status,
-	commitGuess
+	commitGuess,
+	setEntry
 }: IBoardProps) {
+	const handleCurrentGuessClicked = (remainingWord: string) => {
+		if (!isGuessing) {
+			setEntry(remainingWord);
+		}
+	};
 	return (
 		<div className={styles.root}>
 			{guesses.map((oldGuess, index) =>
@@ -37,6 +44,7 @@ export default function Board({
 						guess,
 						commitGuess
 					}}
+					onClick={handleCurrentGuessClicked}
 					/>
 			}
 			{status === GameStatus.InProgress &&
