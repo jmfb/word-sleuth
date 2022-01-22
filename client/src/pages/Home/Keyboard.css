@@ -4,11 +4,18 @@
 }
 
 .row {
-	margin-left: auto;
-	margin-right: auto;
+	width: 100%;
 	margin-bottom: 0.5rem;
 	display: flex;
 	flex-direction: row;
+}
+
+.row > .key:first-child {
+	margin-left: auto;
+}
+
+.row > .key:last-child {
+	margin-right: auto;
 }
 
 .key {
@@ -19,8 +26,8 @@
 	margin-right: 2px;
 	background-color: lightgray;
 	border-radius: 4px;
-	padding: 12px 0;
-	min-width: 28px;
+	padding: 14px 0;
+	flex-basis: 10%;
 	text-align: center;
 }
 
@@ -40,24 +47,11 @@
 
 .enter {
 	background-color: lightblue;
-	min-width: 42px;
+	flex-basis: 15%;
 }
 
 .backspace {
 	background-color: lightpink;
-	min-width: 42px;
+	flex-basis: 15%;
 }
 
-@media screen and (max-width: 342px) {
-	.key {
-		min-width: 20px;
-	}
-
-	.enter {
-		min-width: 32px;
-	}
-
-	.backspace {
-		min-width: 32px;
-	}
-}
