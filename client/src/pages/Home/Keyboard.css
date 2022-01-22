@@ -34,7 +34,8 @@
 }
 
 .notInWord {
-	background-color: darkgray;
+	background-color: #555;
+	color: white;
 }
 
 .enter {
