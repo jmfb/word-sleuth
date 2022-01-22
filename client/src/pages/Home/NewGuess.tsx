@@ -22,14 +22,15 @@ export default function NewGuess({
 
 	useInterval(() => {
 		if (guess) {
-			if (counter === 5) {
+			const steps = guess.status === GuessStatus.InvalidWord ? 2 : 4;
+			if (counter === steps) {
 				commitGuess();
 				setCounter(0);
 			} else {
 				setCounter(counter + 1);
 			}
 		}
-	}, 200);
+	}, 150);
 
 	const word = (entry + '     ').substr(0, 5);
 	const currentGuess = { word, letterResults: null } as IGuess;
