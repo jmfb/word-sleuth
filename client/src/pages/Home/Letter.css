@@ -8,6 +8,7 @@
 	border: 1px solid black;
 	background-color: white;
 	font-size: x-large;
+	transition: all 150ms ease-in;
 }
 
 .letter {
