@@ -29,6 +29,7 @@
 	padding: 14px 0;
 	flex-basis: 10%;
 	text-align: center;
+	transition: all 150ms ease-in;
 }
 
 .correct {
