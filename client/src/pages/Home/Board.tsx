@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useInterval } from '~/hooks';
 import Guess from './Guess';
-import NewGuess from './NewGuess';
-import { IGuess, IGuessResult, GameStatus } from '~/models';
+import { IGuess, IGuessResult, GameStatus, GuessStatus } from '~/models';
 import styles from './Board.css';
 
 export interface IBoardProps {
@@ -23,11 +23,30 @@ export default function Board({
 	commitGuess,
 	setEntry
 }: IBoardProps) {
+	const [counter, setCounter] = useState(0);
+
+	useInterval(() => {
+		if (guess) {
+			const steps = guess.status === GuessStatus.InvalidWord ? 2 : 4;
+			if (counter === steps) {
+				commitGuess();
+				setCounter(0);
+			} else {
+				setCounter(counter + 1);
+			}
+		}
+	}, 150);
+
+	const word = (entry + '     ').substr(0, 5);
+	const currentGuess = { word, letterResults: null } as IGuess;
+	const slowReveal = guess ? counter : undefined;
+
 	const handleCurrentGuessClicked = (remainingWord: string) => {
 		if (!isGuessing) {
 			setEntry(remainingWord);
 		}
 	};
+
 	return (
 		<div className={styles.root}>
 			{guesses.map((oldGuess, index) =>
@@ -37,20 +56,18 @@ export default function Board({
 					/>
 			)}
 			{status === GameStatus.InProgress &&
-				<NewGuess
-					{...{
-						entry,
-						isGuessing,
-						guess,
-						commitGuess
-					}}
+				<Guess
+					key={guesses.length}
+					guess={guess?.guess ?? currentGuess}
+					invalidWord={guess?.status === GuessStatus.InvalidWord}
 					onClick={handleCurrentGuessClicked}
+					{...{slowReveal}}
 					/>
 			}
 			{status === GameStatus.InProgress &&
 				new Array(6 - guesses.length - 1).fill(0).map((value, index) =>
 					<Guess
-						key={index}
+						key={guesses.length + index + 1}
 						/>
 				)
 			}
