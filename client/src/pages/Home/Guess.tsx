@@ -6,6 +6,7 @@ import styles from './Guess.css';
 export interface IGuessProps {
 	guess?: IGuess;
 	invalidWord?: boolean;
+	isGuessing?: boolean;
 	slowReveal?: number;
 	onClick?(remainingWord: string): void;
 }
@@ -13,6 +14,7 @@ export interface IGuessProps {
 export default function Guess({
 	guess,
 	invalidWord,
+	isGuessing,
 	slowReveal,
 	onClick
 }: IGuessProps) {
@@ -33,7 +35,7 @@ export default function Guess({
 					key={index}
 					value={word[index]}
 					result={isRevealed(index) ? letterResults[index] : undefined}
-					{...{invalidWord}}
+					{...{invalidWord, isGuessing}}
 					onClick={createClickHandler(index)}
 					/>
 			)}

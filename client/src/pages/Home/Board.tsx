@@ -61,7 +61,7 @@ export default function Board({
 					guess={guess?.guess ?? currentGuess}
 					invalidWord={guess?.status === GuessStatus.InvalidWord}
 					onClick={handleCurrentGuessClicked}
-					{...{slowReveal}}
+					{...{slowReveal, isGuessing}}
 					/>
 			}
 			{status === GameStatus.InProgress &&
