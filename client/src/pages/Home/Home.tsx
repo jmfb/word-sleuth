@@ -62,7 +62,9 @@ export default function Home({
 				Game #{id}
 				{remainingPossibilities &&
 					<>
-						<div className={styles.remainingPossibilities}>{remainingPossibilities} words</div>
+						<div className={styles.remainingPossibilities}>
+							{`${remainingPossibilities} word${remainingPossibilities === 1 ? '' : 's'}`}
+						</div>
 						<Button onClick={makeRandomGuess}>RANDOM</Button>
 					</>
 				}
