@@ -42,6 +42,19 @@ namespace WordSleuth.Server.Api.Controllers {
 			return Ok(result);
 		}
 
+		[HttpPost("{gameId}/random-guess")]
+		public async Task<IActionResult> PostRandomGuessAsync(
+			[FromRoute] int gameId,
+			CancellationToken cancellationToken
+		) {
+			var game = await GamesService.GetAsync(UserId, gameId, cancellationToken);
+			if (game.Status != (int)GameStatus.InProgress) {
+				return BadRequest();
+			}
+			var result = await GamesService.MakeRandomGuessAsync(game, cancellationToken);
+			return Ok(result);
+		}
+
 		[HttpGet("{gameId}/answer")]
 		public async Task<IActionResult> GetAnswerAsync(
 			[FromRoute] int gameId,

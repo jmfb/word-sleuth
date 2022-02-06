@@ -43,12 +43,14 @@ export interface IGuess {
 export interface IGuessResult {
 	guess?: IGuess;
 	status: GuessStatus;
+	remainingPossibilities?: number;
 }
 
 export interface IGame {
 	id: number;
 	guesses: IGuess[];
 	status: GameStatus;
+	remainingPossibilities?: number;
 }
 
 export interface IStatistics {

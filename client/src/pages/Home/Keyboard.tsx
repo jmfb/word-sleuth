@@ -10,6 +10,7 @@ export interface IKeyboardProps {
 	entry: string;
 	setEntry(word: string): void;
 	makeGuess(word: string): void;
+	makeRandomGuess(): void;
 }
 
 export default function Keyboard({
@@ -17,7 +18,8 @@ export default function Keyboard({
 	guesses,
 	entry,
 	setEntry,
-	makeGuess
+	makeGuess,
+	makeRandomGuess
 }: IKeyboardProps) {
 	const rows = [
 		'qwertyuiop',
@@ -53,6 +55,9 @@ export default function Keyboard({
 			handleKeyPressed(event.key);
 		} else if (event.code === 'Escape' && !disabled) {
 			setEntry('');
+		} else if (event.code === 'F1' && !disabled) {
+			makeRandomGuess();
+			event.preventDefault();
 		}
 	};
 

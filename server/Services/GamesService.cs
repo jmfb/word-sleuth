@@ -12,6 +12,7 @@ namespace WordSleuth.Server.Services {
 	public interface IGamesService {
 		Task<Game> GetAsync(string userId, int gameId, CancellationToken cancellationToken);
 		Task<GuessResult> MakeGuessAsync(Game game, string word, CancellationToken cancellationToken);
+		Task<GuessResult> MakeRandomGuessAsync(Game game, CancellationToken cancellationToken);
 		Task<IList<Game>> LoadAllAsync(string userId, CancellationToken cancellationToken);
 		Task<Statistics> GetStatisticsAsync(string userId, CancellationToken cancellationToken);
 	}
@@ -66,8 +67,14 @@ namespace WordSleuth.Server.Services {
 			await Context.SaveAsync(game, cancellationToken);
 			return new GuessResult {
 				Guess = guess,
-				Status = status
+				Status = status,
+				RemainingPossibilities = new GameModel(game).RemainingPossibilities
 			};
+		}
+
+		public async Task<GuessResult> MakeRandomGuessAsync(Game game, CancellationToken cancellationToken) {
+			var randomGuess = new GameModel(game).GetRandomGuess();
+			return await MakeGuessAsync(game, randomGuess, cancellationToken);
 		}
 
 		public async Task<IList<Game>> LoadAllAsync(string userId, CancellationToken cancellationToken) {

@@ -33,5 +33,8 @@ namespace WordSleuth.Server.Models {
 			}
 			LetterResults = letterResults;
 		}
+
+		public bool IsSameResult(string possibleAnswer) =>
+			Enumerable.SequenceEqual(LetterResults, new Guess(possibleAnswer, Word).LetterResults);
 	}
 }

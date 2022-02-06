@@ -15,6 +15,13 @@ export async function makeGuess(accessToken: string, gameId: number, word: strin
 	});
 }
 
+export async function makeRandomGuess(accessToken: string, gameId: number) {
+	return await post<IGuessResult>({
+		endpoint: `/api/games/${gameId}/random-guess`,
+		accessToken
+	});
+}
+
 export async function getAnswer(accessToken: string, gameId: number) {
 	return await get<string>({
 		endpoint: `/api/games/${gameId}/answer`,

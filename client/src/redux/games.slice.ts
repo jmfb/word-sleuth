@@ -3,6 +3,7 @@ import { IGame, IGuessResult, IStatistics, GameStatus, GuessStatus } from '~/mod
 import {
 	getNextGame,
 	makeGuess,
+	makeRandomGuess,
 	getAnswer,
 	getStatistics
 } from './games.actions';
@@ -42,6 +43,7 @@ const slice = createSlice({
 					break;
 				case GuessStatus.Incorrect:
 					state.entry = '';
+					state.game.remainingPossibilities = state.guess.remainingPossibilities;
 					state.game.guesses.push(state.guess.guess);
 					if (state.game.guesses.length === 6) {
 						state.game.status = GameStatus.Incorrect;
@@ -49,6 +51,7 @@ const slice = createSlice({
 					break;
 				case GuessStatus.Correct:
 					state.entry = '';
+					state.game.remainingPossibilities = null;
 					state.game.guesses.push(state.guess.guess);
 					state.game.status = GameStatus.Correct;
 					break;
@@ -60,7 +63,8 @@ const slice = createSlice({
 			state.game = {
 				id: state.game.id + 1,
 				guesses: [],
-				status: 0
+				status: 0,
+				remainingPossibilities: 8938
 			};
 			state.entry = '';
 			state.isGuessing = false;
@@ -92,6 +96,17 @@ const slice = createSlice({
 			state.isGuessing = false;
 		})
 
+		.addCase(makeRandomGuess.pending, state => {
+			state.isGuessing = true;
+		})
+		.addCase(makeRandomGuess.fulfilled, (state, action) => {
+			state.isGuessing = false;
+			state.guess = action.payload;
+		})
+		.addCase(makeRandomGuess.rejected, state => {
+			state.isGuessing = false;
+		})
+
 		.addCase(getAnswer.fulfilled, (state, action) => {
 			state.answer = action.payload;
 		})
@@ -115,6 +130,7 @@ export default {
 		...slice.actions,
 		getNextGame,
 		makeGuess,
+		makeRandomGuess,
 		getAnswer,
 		getStatistics
 	}

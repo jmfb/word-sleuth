@@ -12,6 +12,11 @@ export const makeGuess = createAsyncThunk('games/makeGuess', async (word: string
 	return await hub.makeGuess(accessToken, gameId, word);
 });
 
+export const makeRandomGuess = createAsyncThunk('games/makeRandomGuess', async (unused, { getState }) => {
+	const { auth: { accessToken }, games: { game: { id: gameId } } } = getState() as IState;
+	return await hub.makeRandomGuess(accessToken, gameId);
+});
+
 export const getAnswer = createAsyncThunk('games/getAnswer', async (unused, { getState }) => {
 	const { auth: { accessToken }, games: { game: { id: gameId } } } = getState() as IState;
 	return await hub.getAnswer(accessToken, gameId);

@@ -1,3 +1,15 @@
+.header {
+	display: flex;
+	flex-direction: row;
+}
+
+.remainingPossibilities {
+	margin-left: auto;
+	font-weight: 300;
+	font-size: 1.3rem;
+	margin-right: 1rem;
+}
+
 .buttons {
 	display: flex;
 	flex-direction: row;

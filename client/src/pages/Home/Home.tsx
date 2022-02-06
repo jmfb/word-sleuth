@@ -16,6 +16,7 @@ export interface IHomeProps {
 	newGame(): void;
 	setEntry(word: string): void;
 	makeGuess(word: string): void;
+	makeRandomGuess(): void;
 	commitGuess(): void;
 	getAnswer(): void;
 }
@@ -30,6 +31,7 @@ export default function Home({
 	newGame,
 	setEntry,
 	makeGuess,
+	makeRandomGuess,
 	commitGuess,
 	getAnswer
 }: IHomeProps) {
@@ -37,7 +39,7 @@ export default function Home({
 		return <PageLoading message='Loading next game...' />;
 	}
 
-	const { id, guesses, status } = game;
+	const { id, guesses, status, remainingPossibilities } = game;
 
 	const letterResultMap = {
 		[LetterResult.Correct]: '🟩',
@@ -56,7 +58,15 @@ export default function Home({
 
 	return (
 		<>
-			<h1>Game #{id}</h1>
+			<h1 className={styles.header}>
+				Game #{id}
+				{remainingPossibilities &&
+					<>
+						<div className={styles.remainingPossibilities}>{remainingPossibilities} words</div>
+						<Button onClick={makeRandomGuess}>RANDOM</Button>
+					</>
+				}
+			</h1>
 			<Board
 				{...{
 					guesses,
@@ -83,7 +93,8 @@ export default function Home({
 						guesses,
 						entry,
 						setEntry,
-						makeGuess
+						makeGuess,
+						makeRandomGuess
 					}}
 					disabled={isGuessing || !!guess}
 					/>

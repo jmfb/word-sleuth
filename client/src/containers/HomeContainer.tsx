@@ -11,6 +11,7 @@ export default function HomeContainer() {
 		newGame,
 		setEntry,
 		makeGuess,
+		makeRandomGuess,
 		commitGuess,
 		getAnswer
 	} = bindActionCreators(gamesSlice.actions, dispatch);
@@ -40,6 +41,7 @@ export default function HomeContainer() {
 			newGame={() => newGame()}
 			commitGuess={() => commitGuess()}
 			getAnswer={() => getAnswer()}
+			makeRandomGuess={() => makeRandomGuess()}
 			/>
 	);
 }
